@@ -5,7 +5,7 @@ android {
     buildToolsVersion "28.0.2"
     defaultConfig {
         applicationId "br.edu.ifspsaocarlos.agenda"
-        minSdkVersion 19
+        minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
