@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import br.edu.ifspsaocarlos.agenda.adapter.ContatoAdapter;
 import br.edu.ifspsaocarlos.agenda.data.ContatoDAO;
 import br.edu.ifspsaocarlos.agenda.model.Contato;
 import br.edu.ifspsaocarlos.agenda.R;
@@ -71,6 +72,7 @@ public class DetalheActivity extends AppCompatActivity {
     private void apagar()
     {
         cDAO.apagaContato(c);
+
         Intent resultIntent = new Intent();
         setResult(3,resultIntent);
         finish();
@@ -91,6 +93,8 @@ public class DetalheActivity extends AppCompatActivity {
         c.setEmail(email);
 
         cDAO.salvaContato(c);
+        //c.setId(10);
+        //ContatoAdapter.Adiciona(c);
         Intent resultIntent = new Intent();
         setResult(RESULT_OK,resultIntent);
         finish();

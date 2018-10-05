@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import br.edu.ifspsaocarlos.agenda.adapter.ContatoAdapter;
 import br.edu.ifspsaocarlos.agenda.model.Contato;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +84,7 @@ public class ContatoDAO {
     }
 
     public void salvaContato(Contato c) {
+
         database=dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SQLiteHelper.KEY_NAME, c.getNome());
@@ -94,8 +97,12 @@ public class ContatoDAO {
         else
            database.insert(SQLiteHelper.DATABASE_TABLE, null, values);
 
+
+
         database.close();
+
     }
+
 
 
 
@@ -104,6 +111,7 @@ public class ContatoDAO {
         database=dbHelper.getWritableDatabase();
         database.delete(SQLiteHelper.DATABASE_TABLE, SQLiteHelper.KEY_ID + "="
                 + c.getId(), null);
+
         database.close();
     }
 }

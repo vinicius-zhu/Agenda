@@ -15,10 +15,12 @@ import java.util.List;
 
 public class ContatoAdapter extends RecyclerView.Adapter<ContatoAdapter.ContatoViewHolder> {
 
-    private List<Contato> contatos;
+    private static List<Contato> contatos;
     private Context context;
 
+
     private static ItemClickListener clickListener;
+
 
 
     public ContatoAdapter(List<Contato> contatos, Context context) {
@@ -35,8 +37,7 @@ public class ContatoAdapter extends RecyclerView.Adapter<ContatoAdapter.ContatoV
 
     @Override
     public void onBindViewHolder(ContatoViewHolder holder, int position) {
-        Contato contato  = contatos.get(position) ;
-        holder.nome.setText(contato.getNome());
+       holder.nome.setText(contatos.get(position).getNome());
     }
 
     @Override

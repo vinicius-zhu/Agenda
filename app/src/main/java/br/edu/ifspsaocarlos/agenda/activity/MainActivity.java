@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity{
         if (requestCode == 1)
             if (resultCode == RESULT_OK) {
                 showSnackBar(getResources().getString(R.string.contato_adicionado));
+             //   adapter.notifyItemInserted(adapter.getItemCount());
                 updateUI(null);
             }
 
@@ -158,6 +159,8 @@ public class MainActivity extends AppCompatActivity{
                 showSnackBar(getResources().getString(R.string.contato_alterado));
             if (resultCode == 3)
                 showSnackBar(getResources().getString(R.string.contato_apagado));
+
+
 
             updateUI(null);
         }
@@ -180,12 +183,14 @@ public class MainActivity extends AppCompatActivity{
         if (nomeContato==null) {
             contatos.addAll(cDAO.buscaTodosContatos());
             empty.setText(getResources().getString(R.string.lista_vazia));
-            fab.setVisibility(View.VISIBLE);
+            fab.show();
+
         }
         else {
             contatos.addAll(cDAO.buscaContato(nomeContato));
             empty.setText(getResources().getString(R.string.contato_nao_encontrado));
-            fab.setVisibility(View.GONE);
+            fab.hide();
+
 
         }
 
@@ -224,9 +229,9 @@ public class MainActivity extends AppCompatActivity{
                     Contato contato = contatos.get(viewHolder.getAdapterPosition());
                     cDAO.apagaContato(contato);
                     contatos.remove(viewHolder.getAdapterPosition());
-                    recyclerView.getAdapter().notifyDataSetChanged();
+                    recyclerView.getAdapter().notifyItemRemoved(viewHolder.getAdapterPosition());
                     showSnackBar(getResources().getString(R.string.contato_apagado));
-                    updateUI(null);
+
                 }
             }
 
