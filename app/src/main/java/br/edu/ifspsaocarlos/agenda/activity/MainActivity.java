@@ -20,10 +20,12 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,16 @@ import br.edu.ifspsaocarlos.agenda.model.Contato;
 
 
 public class MainActivity extends AppCompatActivity{
+
+    private Boolean pesqFavoritos;
+    public void setPesqFavoritos(boolean pq)
+    {
+        this.pesqFavoritos = pq;
+    }
+    public Boolean getPesqFavoritos()
+    {
+        return this.pesqFavoritos;
+    }
 
     private ContatoDAO cDAO ;
     private RecyclerView recyclerView;
@@ -78,7 +90,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setPesqFavoritos(false);
         Intent intent = getIntent();
         handleIntent(intent);
 
@@ -93,7 +105,7 @@ public class MainActivity extends AppCompatActivity{
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layout);
 
-        adapter = new ContatoAdapter(contatos, this);
+        adapter = new ContatoAdapter(contatos, this, cDAO);
         recyclerView.setAdapter(adapter);
 
         setupRecyclerView();
@@ -142,6 +154,21 @@ public class MainActivity extends AppCompatActivity{
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.pesqFavoritos:
+                setPesqFavoritos(!getPesqFavoritos());
+                updateUI(null);
+                return true;
+            case R.id.pesqContato:
+                setPesqFavoritos(false);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -180,20 +207,33 @@ public class MainActivity extends AppCompatActivity{
 
         contatos.clear();
 
-        if (nomeContato==null) {
-            contatos.addAll(cDAO.buscaTodosContatos());
-            empty.setText(getResources().getString(R.string.lista_vazia));
-            fab.show();
-
+        if (getPesqFavoritos())
+        {
+            contatos.addAll(cDAO.buscaFavoritos());
+            if (contatos.size() == 0)
+            {
+                empty.setText(getResources().getString(R.string.lista_vazia));
+                fab.show();
+            }
+            else
+            {
+                empty.setText("");
+                fab.hide();
+            }
         }
         else {
-            contatos.addAll(cDAO.buscaContato(nomeContato));
-            empty.setText(getResources().getString(R.string.contato_nao_encontrado));
-            fab.hide();
+            if (nomeContato == null) {
+                contatos.addAll(cDAO.buscaTodosContatos());
+                empty.setText(getResources().getString(R.string.lista_vazia));
+                fab.show();
 
-
+            } else {
+                contatos.addAll(cDAO.buscaContato(nomeContato));
+                contatos.addAll(cDAO.buscaContatoEmail(nomeContato));
+                empty.setText(getResources().getString(R.string.contato_nao_encontrado));
+                fab.hide();
+            }
         }
-
         recyclerView.getAdapter().notifyDataSetChanged();
 
         if (recyclerView.getAdapter().getItemCount()==0)
@@ -213,6 +253,7 @@ public class MainActivity extends AppCompatActivity{
                 Intent i = new Intent(getApplicationContext(), DetalheActivity.class);
                 i.putExtra("contato", contato);
                 startActivityForResult(i, 2);
+                cDAO.salvaFavorito(contato);
             }
         });
 

@@ -37,30 +37,69 @@
         <EditText
             android:id="@+id/editTextNome"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </EditText>
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"></EditText>
         <TextView
             android:id="@+id/textViewFone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fone">
         </TextView>
+
         <EditText
             android:id="@+id/editTextFone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </EditText>
+            android:layout_height="wrap_content"
+            android:inputType="text"></EditText>
         <TextView
             android:id="@+id/textViewEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/email" >
         </TextView>
+
         <EditText
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </EditText>
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"></EditText>
+
+        <TextView
+            android:id="@+id/textViewFone2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fone2"></TextView>
+
+        <EditText
+            android:id="@+id/editTextFone2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"></EditText>
+
+        <TextView
+            android:id="@+id/textViewNiver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/niver"></TextView>
+
+        <EditText
+            android:id="@+id/editTextNiver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"></EditText>
+
+        <TextView
+            android:id="@+id/textViewFavorito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/favorito"></TextView>
+
+        <ToggleButton
+            android:id="@+id/toggleButtonFavorito"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton" />
+
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
 

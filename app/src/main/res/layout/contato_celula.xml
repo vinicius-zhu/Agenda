@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -23,6 +23,17 @@
         android:textSize="20sp"
         android:gravity="center_vertical"
         />
+
+        <ToggleButton
+            android:id="@+id/favButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="end"
+            android:background="@drawable/img_star_gray"
+            android:textOff=""
+            android:textOn="" />
 
     </android.support.v7.widget.CardView>
 
